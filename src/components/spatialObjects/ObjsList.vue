@@ -126,7 +126,7 @@ export default {
   .objs-table {
     position: relative;
     width: 100%;
-    //width: 2000px;
+    width: 2000px;
     height: auto;
     display: flex;
     flex-flow: column nowrap;

@@ -78,7 +78,7 @@ export default {
   props: [],
   data() {
     return {
-      allowShortMode: true, //true - разрешить использование карточек вместо таблицы, располагать list и map в горизонтальной последовательности
+      allowShortMode: false, //true - разрешить использование карточек вместо таблицы, располагать list и map в горизонтальной последовательности
       currentViewMode: 'list',
       filtersIsShown: false,
     }

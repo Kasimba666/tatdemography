@@ -3,7 +3,7 @@
     <div class="my-title"
          @click="$router.push({name: 'ObjsFiltersAndList'})"
     >
-      Памятники эпиграфики Республики Татарстан XIV-XVIIвв.
+      Демографическая ситуация в Республике Татарстан.
     </div>
   </div>
 </template>

@@ -15,6 +15,6 @@ export default defineConfig({
   },
   server: {
      // https: true,
-     port: 6060
+     port: 7070
   },
 })
