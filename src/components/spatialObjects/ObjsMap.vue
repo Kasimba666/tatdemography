@@ -256,7 +256,6 @@ export default {
                 })[0].title + ': ' + value + '</h8>' + '<br>'
               }
             });
-
             if (content != '') {
               this.contentPopup = content;
               content_element.innerHTML = content;
@@ -322,7 +321,7 @@ export default {
     this.initPopup();
     this.addOneFeatureLayer();
     this.addCollectionFeaturesLayer();
-    // this.addGeofeaturesLayers();
+    this.addGeofeaturesLayers();
   },
 
   watch: {

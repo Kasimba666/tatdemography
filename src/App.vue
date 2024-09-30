@@ -47,7 +47,7 @@ export default {
     this.$store.dispatch('loadImagesCSV');
     this.$store.dispatch('initFiltersValues');
     this.$store.dispatch('initSortingValues');
-    // this.$store.dispatch('initGeofeatures');
+    this.$store.dispatch('initGeofeatures');
     this.setScreenListener();
   },
   unmounted() {
