@@ -17,4 +17,5 @@ export default defineConfig({
      // https: true,
      port: 7070
   },
+  base: '/tatdemography/',
 })

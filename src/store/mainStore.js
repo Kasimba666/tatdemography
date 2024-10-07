@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
 // import createPersistedState from 'vuex-persistedstate';
-import fromFileJSON from "@/data/7th_1816_web_3857.json";
+import fromFileJSON from "@/data/Seventh_1816_3857.json";
 import imagePaths from "@/data/images_empty.csv";
 import fromFileBorder from "@/data/border_pgm_3857.json";
 
@@ -13,16 +13,18 @@ export default new Vuex.Store({
             {attrName: 'id', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
             {attrName: 'nameold', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'nameoldalt', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'name', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunitold', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit2ol', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit3ol', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit4ol', title: 'Административная единица 4', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'namemod', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit1old', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit2old', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit3old', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit4old', title: 'Административная единица 4', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit5old', title: 'Административная единица 5', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunitmod', title: 'Район РТ', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'estate', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate1', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate2', title: 'Сословие 2', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate3', title: 'Сословие 3', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate4', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate4', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate5', title: 'Сословие 5', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate_all', title: 'Сословия общее', inTable: 1, inCards: 1.2, colSize: 1, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'male', title: 'ДМП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'female', title: 'ДЖП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
@@ -259,7 +261,7 @@ export default new Vuex.Store({
         },
         collectionFeaturesForMaps(state, getters) {
             if (!!getters.filteredGeojson && !!getters.filteredGeojson.features) {
-                let newFeatures = getters.filteredGeojson.features.map((feature) => {
+                let newFeatures = getters.filteredGeojson.features.filter(v=>v.geometry.coordinates[0] !== 0.0 && v.geometry.coordinates[1] !== 0.0).map((feature) => {
                     let newProperties = {};
                     state.scheme.forEach((item) => {
                         if (item.inMap === 1) {
@@ -353,7 +355,7 @@ export default new Vuex.Store({
                     v.properties.id = v.properties.id.toString();
                 });
                 //убрать все объекты с нулевыми координатами
-                newGeojson.features = newGeojson.features.filter(v=>v.geometry.coordinates[0] !== 0.0 && v.geometry.coordinates[1] !== 0.0);
+                // newGeojson.features = newGeojson.features.filter(v=>v.geometry.coordinates[0] !== 0.0 && v.geometry.coordinates[1] !== 0.0);
                 commit('setGeojson', newGeojson);
             } catch (e) {
                 alert('Ошибка загрузки файла');

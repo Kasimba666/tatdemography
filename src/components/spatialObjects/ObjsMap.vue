@@ -201,7 +201,7 @@ export default {
           info.style.top = pixel[1] + 'px';
           if (feature !== currentFeature) {
             info.style.visibility = 'visible';
-            info.innerText = feature.get('name');
+            info.innerText = feature.get('namemod');
           }
         } else {
           info.style.visibility = 'hidden';
@@ -246,11 +246,11 @@ export default {
           let filteredFeature = this.collectionFeatures.features.filter((v) => feature.get('id') === v.properties.id)[0];
           if (!!filteredFeature) {
             this.currentPointFeature.features.push(filteredFeature);
-            this.popupTitle = feature.get('name');
+            this.popupTitle = feature.get('namemod');
             let content = '';
             // Object.entries(this.currentPointFeature.features[0].properties).forEach(([key, value]) => {
             Object.entries(filteredFeature.properties).forEach(([key, value]) => {
-              if (key !== 'id' && key !== 'name' && value !== null && value !== '') {
+              if (key !== 'id' && key !== 'namemod' && value !== null && value !== '') {
                 content += '<h8>' + this.scheme.filter(v => {
                   if (v['attrName'] === key) return v
                 })[0].title + ': ' + value + '</h8>' + '<br>'

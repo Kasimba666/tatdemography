@@ -3,7 +3,7 @@
     <div class="my-title"
          @click="$router.push({name: 'ObjsFiltersAndList'})"
     >
-      Демографическая ситуация в Республике Татарстан.
+      Историческая демография татар в Закамье и Приуралье в XVIII-XIXвв
     </div>
   </div>
 </template>

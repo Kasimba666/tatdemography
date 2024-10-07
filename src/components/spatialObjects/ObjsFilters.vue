@@ -159,7 +159,7 @@ export default {
   };
 
   .filter-block {
-    width: 270px;
+    width: 280px;
     display: flex;
     flex-flow: row wrap;
     justify-content: left;
@@ -167,9 +167,10 @@ export default {
     padding: 3px;
 
     .label-placeholder {
-      width: 90px;
+      width: 105px;
       height: auto;
-      text-align: left;
+      text-align: right;
+      padding-top: 0px;
       //margin-right: 10px;
     }
 
