@@ -1,28 +1,33 @@
 <template>
   <div class="ObjsSorting" v-if="Object.keys(sortingValues).length>0">
     <div class="sorting-block">
-      <label for="sorting" class="label-placeholder">Сортировка: </label>
-      <el-select id="sorting"
-                 v-model="sortingValues.attrName"
-                 placeholder="Select"
-                 size="small"
-                 style="width: 160px"
-                 @change="onChangeSortingValues"
-      >
-        <el-option
-            v-for="item of scheme.filter(v=>v.sortable === 1)"
-            :value="item.attrName"
-            :label="item.title"
-        />
-      </el-select>
-    <el-radio-group
-        v-model="sortingValues.direction"
-        size="small"
-        @change="onChangeSortingValues"
-    >
-      <el-radio-button label="по возрастанию" value="asc" />
-      <el-radio-button label="по убыванию" value="desc" />
-    </el-radio-group>
+      <div class="sorting-label">
+        <label for="sorting" class="label">Сортировка: </label>
+      </div>
+      <div class="sorting-value">
+        <el-select id="sorting"
+                   v-model="sortingValues.attrName"
+                   placeholder="Select"
+                   size="small"
+                   @change="onChangeSortingValues"
+        >
+          <el-option
+              v-for="item of scheme.filter(v=>v.sortable === 1)"
+              :value="item.attrName"
+              :label="item.title"
+          />
+        </el-select>
+      </div>
+      <div class="sorting-direction">
+        <el-radio-group
+            v-model="sortingValues.direction"
+            size="small"
+            @change="onChangeSortingValues"
+        >
+          <el-radio-button label="по возрастанию" value="asc" />
+          <el-radio-button label="по убыванию" value="desc" />
+        </el-radio-group>
+      </div>
     </div>
   </div>
 </template>
@@ -70,13 +75,18 @@ export default {
     gap: 5px;
     padding: 3px;
 
-    .label-placeholder {
-      width: 90px;
+    .sorting-label {
+      width: 70px;
       height: auto;
+      text-align: end;
     }
 
-    .sorting-placeholder {
-      width: 160px;
+    .sorting-value {
+      width: 260px;
+      height: auto;
+    }
+    .sorting-direction {
+      width: auto;
       height: auto;
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="ObjsFilters" v-if="filtersValues.length>0" :class="{heightLimited: this.screen.type === 'xl'}">
     <div v-for="(filter, f) of filters" :key="f" class="filter-block">
-      <div class="label-placeholder">
+      <div class="label">
         <label for="filter_`${f}`">{{ filter.title }}: </label>
       </div>
       <div class="filter-placeholder">
@@ -165,7 +165,7 @@ export default {
     gap: 3px;
     padding: 3px;
 
-    .label-placeholder {
+    .label {
       width: 105px;
       height: auto;
       text-align: right;

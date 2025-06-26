@@ -115,7 +115,7 @@ export default new Vuex.Store({
                 return newFilters;
             }
         },
-        filteredGeojson: (state) => {//на основе значений фильтров
+        filteredGeojson: (state, getters) => {//на основе значений фильтров
             if (!!state.geojson) {
                 let newFeatures = [];
                 state.geojson.features.forEach((item) => {
@@ -148,7 +148,7 @@ export default new Vuex.Store({
                     type: state.geojson.type,
                     name: state.geojson.name,
                     crs: state.geojson.crs,
-                    features: newFeatures.sort((a, b) => (state.sortingValues['direction'] === 'asc' ? 1: -1) * (a.properties[state.sortingValues['attrName']] > b.properties[state.sortingValues['attrName']] ? 1: -1)),
+                    features: getters.objAttrTypes[state.sortingValues['attrName']] === 'string' ? newFeatures.sort((a, b) => (state.sortingValues['direction'] === 'asc' ? 1: -1) * (a.properties[state.sortingValues['attrName']].toLowerCase() > b.properties[state.sortingValues['attrName']].toLowerCase() ? 1: -1)) : newFeatures.sort((a, b) => (state.sortingValues['direction'] === 'asc' ? 1: -1) * (a.properties[state.sortingValues['attrName']] > b.properties[state.sortingValues['attrName']] ? 1: -1)),
                 }
             }
         },
@@ -298,6 +298,10 @@ export default new Vuex.Store({
             return {filters: JSON.stringify(filters), order: JSON.stringify(order)};
         },
 
+        // объект, в котором ключ - имя атрибута, а значение - его тип
+        objAttrTypes: (state) => {
+            return Object.fromEntries(state.scheme.map(v => [v.attrName, v.type]));
+        },
 
 },
     mutations: {
@@ -341,15 +345,10 @@ export default new Vuex.Store({
 
     },
     actions: {
-        loadObjsStore({state, commit}) {
+        loadObjsStore({state, getters, commit}) {
             try {
                 let newGeojson = fromFileJSON;
-                let arrAttrsNumbered = [];
-                state.scheme.forEach((v) => {if (v.filterType === 'range') arrAttrsNumbered.push(v.attrName)});
-                //создаём объект, в котором ключ - имя атрибута, а значение - его тип
-                let objAttrTypes = Object.fromEntries(
-                    state.scheme.map(v => [v.attrName, v.type])
-                );
+
                 newGeojson.features = newGeojson.features.map((v) => {
                     return {
                         type: v.type,
@@ -358,11 +357,11 @@ export default new Vuex.Store({
                             let newKey = key.toLowerCase();
                             let newValue = value;
                             //приводим типы к тем, что указаны в шаблоне
-                            if (objAttrTypes[key] === 'string') {
+                            if (getters.objAttrTypes[key] === 'string') {
                                 if (!newValue) newValue = '';
                                 if (typeof(newValue) != 'string') newValue = newValue.toString();
                             }
-                            if (objAttrTypes[key] === 'integer') {
+                            if (getters.objAttrTypes[key] === 'integer') {
                                 if (!newValue) newValue = 0;
                                 if (typeof(newValue) != 'number') newValue = parseInt(newValue);
                             }
@@ -372,8 +371,6 @@ export default new Vuex.Store({
                         geometry: v.geometry,
                     }
                 });
-                //проверить каждую строку входящего json
-
 
                 //убрать все объекты с нулевыми координатами
                 // newGeojson.features = newGeojson.features.filter(v=>v.geometry.coordinates[0] !== 0.0 && v.geometry.coordinates[1] !== 0.0);
