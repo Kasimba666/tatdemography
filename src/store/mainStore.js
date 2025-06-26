@@ -43,7 +43,7 @@ export default new Vuex.Store({
         geojson: null,
         imgs: [],
         filtersValues: [],
-        sortingValues: {attrName: 'name', direction: 'asc'},
+        sortingValues: {attrName: 'nameold', direction: 'asc'},
         currentID: '',
         geofeatures: [],
     },

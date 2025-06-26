@@ -75,8 +75,7 @@
       </div>
     </div>
   </div>
-<!--    {{filtersValues}} <br/>-->
-<!--    {{filters}}-->
+
 </template>
 
 <script>
