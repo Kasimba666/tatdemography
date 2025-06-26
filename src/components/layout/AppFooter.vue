@@ -1,5 +1,7 @@
 <template>
   <div class="AppFooter">
+    <div class="app-panel">
+    </div>
   </div>
 </template>
 

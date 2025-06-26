@@ -66,7 +66,6 @@
           <el-slider
               v-model="filtersValues[f].value.range"
               range
-              size="small"
               :min="filter.listValues[0]"
               :max="filter.listValues[1]"
               :disabled="!filtersValues[f].value.notNull"
@@ -162,8 +161,9 @@ export default {
     width: 280px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: left;
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
     padding: 3px;
 
     .label-placeholder {
@@ -179,12 +179,8 @@ export default {
       height: auto;
     }
   }
-
-  //input, select {
-  //  //width: 150px;
-  //  background-color: hsl(180, 100%, 25%, 0.08);
-  //  width: 100%;
-  //  cursor: pointer;
+  //.el-slider {
+  //  height: 14px;
   //}
 
 }

@@ -1,0 +1,64 @@
+@use './themes.scss';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.87rem;
+
+  --color-slider-track: hsl(120, 100%, 25%);
+  --el-slider-button-size: 14px;
+  --el-slider-height: 4px;
+  --el-slider-button-wrapper-size: 34px;
+  --el-slider-button-wrapper-offset: -15px;
+
+}
+
+.screen-monitor {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 12px;
+  color: black;
+  z-index: 10;
+}
+.app-panel {
+  background-color: var(--bg-primary);
+  border-color:var(--border-color);
+}
+
+// overrides el-button
+.el-button {
+  &.el-button--primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var();
+
+    &:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+  }
+
+}
+.el-slider {
+  height: 15px !important;
+  padding: 7px;
+
+  .el-slider__runway {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .el-slider__bar {
+    background-color: var(--color-slider-track);
+  }
+
+  .el-slider__button {
+    border: 2px solid var(--color-slider-track);
+    background-color: hsl(0, 0%, 100%);
+
+    &:hover {
+      box-shadow: 0 0 4px var(--color-slider-track);
+    }
+  }
+}

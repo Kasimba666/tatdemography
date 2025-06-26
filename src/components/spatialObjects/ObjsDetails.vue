@@ -17,54 +17,54 @@
           </div>
         </div>
       </div>
-      <div class="main-images-and-3d">
-        <div class="collection-images" v-if="!!imgsCard">
-          <div v-for="(v, i) of imgsCard.imgs" :key="i">
-            <a :href="v.large" target="_blank">
-              <div class="my-image"
-                   :style="{backgroundImage: `url(${v.small})`}"
-              >
-              </div>
-            </a>
-            <div class="my-image-label">
-              {{ v.label }}
-            </div>
-          </div>
-        </div>
-        <div class="sketchfab-embed-wrapper"
-             v-if="!!details && sketchfabLink != null">
-          <iframe allowfullscreen
-                  mozallowfullscreen="true"
-                  webkitallowfullscreen="true"
-                  xr-spatial-tracking
-                  execution-while-out-of-viewport
-                  execution-while-not-rendered
-                  web-share
-                  :src="sketchfabLink">
-          </iframe>
-<!--                  allow="autoplay; fullscreen; xr-spatial-tracking"-->
-        </div>
-      </div>
-      <div class="other-images">
-        <div class="collection-images"
-             v-if="!!imgsOther"
-             v-for="w of imgsOther">
-          <!--                <div>{{w['categoryTitle']}}</div>-->
-          <div v-for="(v,i) of w.imgs" :key="i">
-            <div v-if="v != null">
-              <a :href="v.large" target="_blank">
-                <div class="my-image"
-                     :style="{backgroundImage: `url(${v.small})`}"
-                >
-                </div>
-              </a>
-              <div class="my-image-label">
-                {{ v.label }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class="main-images-and-3d">-->
+<!--        <div class="collection-images" v-if="!!imgsCard">-->
+<!--          <div v-for="(v, i) of imgsCard.imgs" :key="i">-->
+<!--            <a :href="v.large" target="_blank">-->
+<!--              <div class="my-image"-->
+<!--                   :style="{backgroundImage: `url(${v.small})`}"-->
+<!--              >-->
+<!--              </div>-->
+<!--            </a>-->
+<!--            <div class="my-image-label">-->
+<!--              {{ v.label }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="sketchfab-embed-wrapper"-->
+<!--             v-if="!!details && sketchfabLink != null">-->
+<!--          <iframe allowfullscreen-->
+<!--                  mozallowfullscreen="true"-->
+<!--                  webkitallowfullscreen="true"-->
+<!--                  xr-spatial-tracking-->
+<!--                  execution-while-out-of-viewport-->
+<!--                  execution-while-not-rendered-->
+<!--                  web-share-->
+<!--                  :src="sketchfabLink">-->
+<!--          </iframe>-->
+<!--&lt;!&ndash;                  allow="autoplay; fullscreen; xr-spatial-tracking"&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="other-images">-->
+<!--        <div class="collection-images"-->
+<!--             v-if="!!imgsOther"-->
+<!--             v-for="w of imgsOther">-->
+<!--          &lt;!&ndash;                <div>{{w['categoryTitle']}}</div>&ndash;&gt;-->
+<!--          <div v-for="(v,i) of w.imgs" :key="i">-->
+<!--            <div v-if="v != null">-->
+<!--              <a :href="v.large" target="_blank">-->
+<!--                <div class="my-image"-->
+<!--                     :style="{backgroundImage: `url(${v.small})`}"-->
+<!--                >-->
+<!--                </div>-->
+<!--              </a>-->
+<!--              <div class="my-image-label">-->
+<!--                {{ v.label }}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div class="map">
       <ObjsMap

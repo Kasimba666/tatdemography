@@ -56,24 +56,10 @@ export default {
 }
 </script>
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.87rem;
-
-}
 
 .app {
-  padding: 5px;
+  padding: 3px;
+  background-color: var(--bg-secondary);
 }
-.screen-monitor {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  font-size: 12px;
-  color: black;
-  z-index: 10;
-}
+
 </style>

@@ -345,6 +345,7 @@ export default {
     height: 100%;
     border: 2px solid hsla(0, 0%, 50%, 0.2);
     border-radius: 5px;
+    z-index: 10;
   }
 
   #map {
