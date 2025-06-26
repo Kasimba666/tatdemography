@@ -10,35 +10,35 @@ const largeImgPath = 'large/';
 export default new Vuex.Store({
     state: {
         scheme: [
-            {attrName: 'id', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
-            {attrName: 'nameold', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'nameoldalt', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'namemod', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit1old', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit2old', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit3old', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit4old', title: 'Административная единица 4', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunit5old', title: 'Административная единица 5', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'admunitmod', title: 'Район РТ', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'estate1', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate2', title: 'Сословие 2', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate3', title: 'Сословие 3', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate4', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate5', title: 'Сословие 5', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate_all', title: 'Всего сословий', inTable: 1, inCards: 1.2, colSize: 1, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male1', title: 'ДМП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female1', title: 'ДЖП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male2', title: 'ДМП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female2', title: 'ДЖП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male3', title: 'ДМП 3', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female3', title: 'ДЖП 3', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male4', title: 'ДМП 4', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female4', title: 'ДЖП 4', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male5', title: 'ДМП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female5', title: 'ДЖП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male_all', title: 'ДМП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female_all', title: 'ДЖП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'populall', title: 'Население все', inTable: 1, inCards: 1, colSize: 0.58, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'id', type: 'string', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
+            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit1old', type: 'string', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit2old', type: 'string', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit3old', type: 'string', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit4old', type: 'string', title: 'Административная единица 4', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunit5old', type: 'string', title: 'Административная единица 5', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'admunitmod', type: 'string', title: 'Район РТ', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'estate1', type: 'string', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate2', type: 'string', title: 'Сословие 2', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate3', type: 'string', title: 'Сословие 3', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate4', type: 'string', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate5', type: 'string', title: 'Сословие 5', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate_all', type: 'integer', title: 'Всего сословий', inTable: 1, inCards: 1.2, colSize: 1, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male1', type: 'integer', title: 'ДМП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female1', type: 'integer', title: 'ДЖП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male2', type: 'integer', title: 'ДМП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female2', type: 'integer', title: 'ДЖП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male3', type: 'integer', title: 'ДМП 3', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female3', type: 'integer', title: 'ДЖП 3', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male4', type: 'integer', title: 'ДМП 4', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female4', type: 'integer', title: 'ДЖП 4', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male5', type: 'integer', title: 'ДМП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female5', type: 'integer', title: 'ДЖП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male_all', type: 'integer', title: 'ДМП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female_all', type: 'integer', title: 'ДЖП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'populall', type: 'integer', title: 'Население все', inTable: 1, inCards: 1, colSize: 0.58, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
         ],
         geojson: null,
         imgs: [],
@@ -290,7 +290,7 @@ export default new Vuex.Store({
         getURLQueryJSON(state, commit) {
             let filters = {};
             state.filtersValues.forEach((v)=>{if (!!v.value) filters[v.attrName] = v.value});
-            if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'name', direction: 'asc'});
+            if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'nameold', direction: 'asc'});
             let sortName = state.sortingValues.attrName;
             let sortDirection = state.sortingValues.direction;
             let order={};
@@ -332,7 +332,7 @@ export default new Vuex.Store({
             }else{
             //поставить исходные значения
                 console.log('setFromURLQuery нет значений сортировки');
-                state.sortingValues = {attrName: 'name', direction: 'asc'};
+                state.sortingValues = {attrName: 'nameold', direction: 'asc'};
             }
         },
         addGeofeature(state, v) {
@@ -344,24 +344,29 @@ export default new Vuex.Store({
         loadObjsStore({state, commit}) {
             try {
                 let newGeojson = fromFileJSON;
-                //создать массив атрибутов, к которым применим фильтр range, их значения должны быть целочисленными, а не текстовыми
                 let arrAttrsNumbered = [];
                 state.scheme.forEach((v) => {if (v.filterType === 'range') arrAttrsNumbered.push(v.attrName)});
-                console.log('Целочисленные атрибуты:', arrAttrsNumbered);
-                // привести все имена атрибутов объекта properties к lower case
+                //создаём объект, в котором ключ - имя атрибута, а значение - его тип
+                let objAttrTypes = Object.fromEntries(
+                    state.scheme.map(v => [v.attrName, v.type])
+                );
                 newGeojson.features = newGeojson.features.map((v) => {
                     return {
                         type: v.type,
                         properties: Object.fromEntries(Object.entries(v.properties).map(([key, value]) => {
+                            //переводим все значения ключей в нижний регистр
                             let newKey = key.toLowerCase();
                             let newValue = value;
-                            if (arrAttrsNumbered.includes(newKey)) {
-                                if (!newValue) newValue = 0;
-                                if (typeof(newValue) === 'string') {
-                                    newValue = parseInt(newValue);
-                                }
+                            //приводим типы к тем, что указаны в шаблоне
+                            if (objAttrTypes[key] === 'string') {
+                                if (!newValue) newValue = '';
+                                if (typeof(newValue) != 'string') newValue = newValue.toString();
                             }
-                            if (key === 'id') newValue = newValue.toString();
+                            if (objAttrTypes[key] === 'integer') {
+                                if (!newValue) newValue = 0;
+                                if (typeof(newValue) != 'number') newValue = parseInt(newValue);
+                            }
+
                             return [newKey, newValue]
                         })),
                         geometry: v.geometry,
@@ -412,7 +417,7 @@ export default new Vuex.Store({
                 }));
         },
         initSortingValues({state, commit}) {
-            if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'name', direction: 'asc'});
+            if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'nameold', direction: 'asc'});
         },
         initGeofeatures({commit}) {
             try {

@@ -1,7 +1,7 @@
 <template>
   <div class="ObjsFiltersAndList" :class="{directionColumn: (!allowShortMode || modeShort)}">
     <div class="filters-and-list">
-      <div>
+      <div class="filter-button-block">
         <el-button type="primary" style="margin-top: 5px"
             size="small"
             @click="toogleFiltersShow"
@@ -223,8 +223,10 @@ export default {
     margin-top: 0px;
   }
 
-  el-button {
-    --el-button-bg-color: #535bf2;
+  .filter-button-block {
+    padding: 5px;
+
   }
+
 }
 </style>
