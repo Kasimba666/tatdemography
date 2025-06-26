@@ -38,7 +38,6 @@
           </el-select>
         </template>
         <template v-if="filter.type === 'range'">
-<!--          {{filter.listValues[0]}}-{{filter.listValues[1]}} : {{filtersValues[f].value.notNull}} {{filtersValues[f].value.range}}-->
             <el-checkbox v-model="filtersValues[f].value.notNull" label="учитывать" size="small" @change="onChangeFiltersValues"/>
           <div class="input-items">
               <div>
@@ -76,7 +75,8 @@
       </div>
     </div>
   </div>
-
+<!--    {{filtersValues}} <br/>-->
+<!--    {{filters}}-->
 </template>
 
 <script>

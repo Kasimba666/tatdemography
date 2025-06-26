@@ -25,9 +25,9 @@ export default new Vuex.Store({
             {attrName: 'estate3', title: 'Сословие 3', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate4', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate5', title: 'Сословие 5', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
-            {attrName: 'estate_all', title: 'Сословия общее', inTable: 1, inCards: 1.2, colSize: 1, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'male', title: 'ДМП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'female', title: 'ДЖП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate_all', title: 'Всего сословий', inTable: 1, inCards: 1.2, colSize: 1, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male1', title: 'ДМП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female1', title: 'ДЖП', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'male2', title: 'ДМП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'female2', title: 'ДЖП 2', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'male3', title: 'ДМП 3', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
@@ -36,9 +36,9 @@ export default new Vuex.Store({
             {attrName: 'female4', title: 'ДЖП 4', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'male5', title: 'ДМП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
             {attrName: 'female5', title: 'ДЖП 5', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'maleall', title: 'ДМП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'femaleall', title: 'ДЖП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
-            {attrName: 'populall', title: 'Население все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'male_all', title: 'ДМП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'female_all', title: 'ДЖП все', inTable: 1, inCards: 1, colSize: 0.5, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
+            {attrName: 'populall', title: 'Население все', inTable: 1, inCards: 1, colSize: 0.58, inDetails: 1, inMap: 0, filterType: 'range', parentValueFrom: null, sortable: 0},
         ],
         geojson: null,
         imgs: [],
@@ -54,9 +54,9 @@ export default new Vuex.Store({
                 let newFilters = [];
                 state.scheme.forEach((attr) => {
                     if (!state.geojson.features[0].properties.hasOwnProperty(attr.attrName)) {
-                        console.log(attr.attrName);
+                        console.log('Ожидаемый атрибут отсутствует во входящем json', attr.attrName);
                         return
-                    };
+                    }
                     if (attr.filterType === 'input') {
                         newFilters.push({
                             attrName: attr.attrName,
@@ -96,6 +96,10 @@ export default new Vuex.Store({
                         let allValues=[];
                         state.geojson.features.forEach((feature)=>{
                             let value=feature.properties[attr.attrName];
+                            // if (typeof(value) === 'string') {
+                            //     console.log(typeof(value), attr.attrName, value, parseInt(value));
+                            //     value = parseInt(value);
+                            // }
                             if (!!value) allValues.push(value);
                         });
                         listValues.push(Math.min(...allValues));
@@ -337,23 +341,35 @@ export default new Vuex.Store({
 
     },
     actions: {
-        loadObjsStore({commit}) {
+        loadObjsStore({state, commit}) {
             try {
                 let newGeojson = fromFileJSON;
+                //создать массив атрибутов, к которым применим фильтр range, их значения должны быть целочисленными, а не текстовыми
+                let arrAttrsNumbered = [];
+                state.scheme.forEach((v) => {if (v.filterType === 'range') arrAttrsNumbered.push(v.attrName)});
+                console.log('Целочисленные атрибуты:', arrAttrsNumbered);
                 // привести все имена атрибутов объекта properties к lower case
                 newGeojson.features = newGeojson.features.map((v) => {
                     return {
                         type: v.type,
                         properties: Object.fromEntries(Object.entries(v.properties).map(([key, value]) => {
-                            return [key.toLowerCase(), value]
+                            let newKey = key.toLowerCase();
+                            let newValue = value;
+                            if (arrAttrsNumbered.includes(newKey)) {
+                                if (!newValue) newValue = 0;
+                                if (typeof(newValue) === 'string') {
+                                    newValue = parseInt(newValue);
+                                }
+                            }
+                            if (key === 'id') newValue = newValue.toString();
+                            return [newKey, newValue]
                         })),
                         geometry: v.geometry,
                     }
                 });
-                //перевести все id к string
-                newGeojson.features.forEach(v=>{
-                    v.properties.id = v.properties.id.toString();
-                });
+                //проверить каждую строку входящего json
+
+
                 //убрать все объекты с нулевыми координатами
                 // newGeojson.features = newGeojson.features.filter(v=>v.geometry.coordinates[0] !== 0.0 && v.geometry.coordinates[1] !== 0.0);
                 commit('setGeojson', newGeojson);
