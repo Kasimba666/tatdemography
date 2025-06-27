@@ -29,11 +29,7 @@
           :filtersValues="filtersValues"
           @onChangeFiltersValues="onChangeFiltersValues"
       />
-      <ObjsSorting v-if="Object.keys(sortingValues).length>0"
-          :sortingValues="sortingValues"
-          :scheme="scheme"
-          @onChangeSortingValues="onChangeSortingValues"
-      />
+
       <el-radio-group style="margin-bottom: 5px"
           v-if="!allowShortMode || modeShort"
           v-model="currentViewMode"
@@ -48,6 +44,9 @@
           :cols="cols"
           :currentID="currentID"
           :modeList="modeList"
+          :sortingValues="sortingValues"
+          :scheme="scheme"
+          @onChangeSortingValues="onChangeSortingValues"
           @clickRow="onSetCurrentIDFromObjsList"
       />
       <div/>

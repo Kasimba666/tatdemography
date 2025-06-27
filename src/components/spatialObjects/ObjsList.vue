@@ -1,5 +1,10 @@
 <template>
   <div class="ObjsList">
+    <ObjsSorting v-if="Object.keys(sortingValues).length>0"
+                 :sortingValues="sortingValues"
+                 :scheme="scheme"
+                 @onChangeSortingValues="onChangeSortingValues"
+    />
     <div class="objs-cards" v-if="modeList === 'cards'">
       <template v-if="!!rows && rows.length>0">
         <div class="obj-card"
@@ -69,16 +74,20 @@
 </template>
 
 <script>
+import ObjsSorting from "@/components/spatialObjects/ObjsSorting.vue";
+
 export default {
-  components: {},
+  components: {ObjsSorting},
   props: {
     // currentRow: Object,
     currentID: String,
     rows: Array,
     cols: Array,
     modeList: String,
+    sortingValues: Object,
+    scheme: Array,
   },
-  emits: ['clickRow'],
+  emits: ['clickRow', 'onChangeSortingValues'],
   data() {
     return {}
   },
@@ -110,8 +119,9 @@ export default {
     isCurrent(row) {
       return row.id === this.currentID;
     },
-
-
+    onChangeSortingValues() {
+      this.$emit('onChangeSortingValues');
+    },
   },
   mounted() {
   },
