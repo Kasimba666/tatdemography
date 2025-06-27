@@ -11,9 +11,9 @@ export default new Vuex.Store({
     state: {
         scheme: [
             {attrName: 'id', type: 'string', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
-            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
+            {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit1old', type: 'string', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit2old', type: 'string', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit3old', type: 'string', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
@@ -118,16 +118,15 @@ export default new Vuex.Store({
                     //проверить item на соответствие значениям фильтров
                     let filterPass = true;
                     state.filtersValues.forEach((fV) => {
+                        if (fV.type === 'input') {
+                            if (!((fV.value === null) || (fV.value === '') ||
+                                ((item.properties[fV.attrName] !== null ? item.properties[fV.attrName] : '').toString().toLowerCase().includes((fV.value !== null ? fV.value : '').toString().toLowerCase(), 0)))) filterPass = false;
+                        }
                         if (fV.type === 'select') {
                             if (!((fV.value === item.properties[fV.attrName]) || (fV.value === 'all'))) filterPass = false;
                         }
-                    if (fV.type === 'range') {
-                        if (!(!fV.value && fV.value.range?.length === 0 || !fV.value.isActive || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
-                    }
-                        if (fV.type === 'input') {
-                            if (!((fV.value === null) || (fV.value === '') ||
-                                ((item.properties[fV.attrName] !== null ? item.properties[fV.attrName] : '').toString().toLowerCase().includes((fV.value !== null ? fV.value : '').toString().toLowerCase(), 0)))
-) filterPass = false;
+                        if (fV.type === 'range') {
+                            if (!(!fV.value && fV.value.range?.length === 0 || !fV.value.isActive || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
                         }
 
                     });
