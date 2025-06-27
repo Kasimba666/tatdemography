@@ -146,16 +146,10 @@ export default {
     },
     onChangeFiltersValues() {
       this.$store.commit('setFiltersValues', this.filtersValues);
-      // let query={filters: JSON.stringify(this.URLQuery)};
-      // console.log('URLQueryJSON', this.URLQueryJSON);
-      // this.$router.push({query});
       this.$router.push({name: 'ObjsFiltersAndList', query: this.getURLQueryJSON});
     },
     onChangeSortingValues() {
       this.$store.commit('setSortingValues', this.sortingValues);
-      // let query={filters: JSON.stringify(this.URLQuery)};
-      // console.log('URLQueryJSON', this.URLQueryJSON);
-      // this.$router.push({query});
       this.$router.push({name: 'ObjsFiltersAndList', query: this.getURLQueryJSON});
     },
 
@@ -170,26 +164,14 @@ export default {
   mounted() {
     //извлекаем значения фильтров и сортировки из адресной строки
     if (Object.keys(this.$route.query).length>0) {
-      let queryRaw = this.$route.query;
-      if (Object.keys(JSON.parse(queryRaw['order'])).length===0) {
-        this.$store.dispatch('initSortingValues');
-        this.$router.push({name: 'ObjsFiltersAndList', query: this.getURLQueryJSON});
-        return
-      };
-      this.$store.commit('setFromURLQuery', queryRaw);
-
+      console.log('ObjsFiltersAndList mounted', 'query заполнен');
+        this.$store.commit('setFromURLQuery', this.$route.query);
     }else{
+      console.log('ObjsFiltersAndList mounted', 'query пустой');
       this.$store.dispatch('initFiltersValues');
       this.$store.dispatch('initSortingValues');
-    };
-    // let queryRaw = this.$route.query;
-    // if (!!queryRaw) {
-    //   this.$store.commit('setFromURLQuery', queryRaw);
-    // }else{
-    //   this.$store.dispatch('initFiltersValues');
-    //   this.$store.dispatch('initSortingValues');
-    //   //сделать push query
-    // };
+    }
+
   },
 }
 </script>

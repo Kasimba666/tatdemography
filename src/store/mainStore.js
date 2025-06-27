@@ -96,10 +96,6 @@ export default new Vuex.Store({
                         let allValues=[];
                         state.geojson.features.forEach((feature)=>{
                             let value=feature.properties[attr.attrName];
-                            // if (typeof(value) === 'string') {
-                            //     console.log(typeof(value), attr.attrName, value, parseInt(value));
-                            //     value = parseInt(value);
-                            // }
                             if (!!value) allValues.push(value);
                         });
                         listValues.push(Math.min(...allValues));
@@ -287,10 +283,11 @@ export default new Vuex.Store({
                 } : null
             }
         },
+        //Возвращает query в виде json
         getURLQueryJSON(state, commit) {
             let filters = {};
             state.filtersValues.forEach((v)=>{if (!!v.value) filters[v.attrName] = v.value});
-            if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'nameold', direction: 'asc'});
+            // if (Object.keys(state.sortingValues).length===0) commit('setSortingValues', {attrName: 'nameold', direction: 'asc'});
             let sortName = state.sortingValues.attrName;
             let sortDirection = state.sortingValues.direction;
             let order={};
@@ -322,21 +319,24 @@ export default new Vuex.Store({
         setCurrentID(state, v) {
             state.currentID = v;
         },
+        //устанавливает значения фильтров и сортировки из query
         setFromURLQuery(state, v) {
-            let filters = JSON.parse(v.filters);
-            let order = JSON.parse(v.order);
-            if (!!filters && Object.keys(filters).length>0) {
-                state.filtersValues.forEach((w) => {if (filters.hasOwnProperty(w.attrName)) w.value = filters[w.attrName]});
-            }else{
-            //поставить исходные значения
+            try {
+                let filters = JSON.parse(v.filters);
+                if (!!filters && Object.keys(filters).length>0) {
+                    state.filtersValues.forEach((w) => {if (filters.hasOwnProperty(w.attrName)) w.value = filters[w.attrName]});
+                }
+            } catch {
+                alert('Проверьте корректность ссылки');
+                this.$store.dispatch('initFiltersValues');
             }
-            if (!!order && Object.keys(order).length>0) {
+            try {
+                let order = JSON.parse(v.order);
                 state.sortingValues.attrName = Object.keys(order)[0];
                 state.sortingValues.direction = Object.values(order)[0];
-            }else{
-            //поставить исходные значения
-                console.log('setFromURLQuery нет значений сортировки');
-                state.sortingValues = {attrName: 'nameold', direction: 'asc'};
+            } catch {
+                alert('Проверьте корректность ссылки');
+                this.$store.dispatch('initSortingValues');
             }
         },
         addGeofeature(state, v) {
