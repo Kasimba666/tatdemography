@@ -1,6 +1,7 @@
 <template>
   <div class="ObjsFilters" v-if="filtersValues.length>0" :class="{heightLimited: this.screen.type === 'xl'}">
-    <div v-for="(filter, f) of filters" :key="f" class="filter-block">
+    <div class="filter-block" v-for="(filter, f) of filters" :key="f">
+      <el-checkbox v-model="filtersValues[f].value.isActive" label="" size="small" @change="onChangeFiltersValues"/>
       <div class="label">
         <label for="filter_`${f}`">{{ filter.title }}: </label>
       </div>
@@ -38,7 +39,7 @@
           </el-select>
         </template>
         <template v-if="filter.type === 'range'">
-            <el-checkbox v-model="filtersValues[f].value.notNull" label="учитывать" size="small" @change="onChangeFiltersValues"/>
+<!--            <el-checkbox v-model="filtersValues[f].value.isActive" label="учитывать" size="small" @change="onChangeFiltersValues"/>-->
           <div class="input-items">
               <div>
                 <el-input-number
@@ -48,7 +49,7 @@
                     controls-position="right"
                     :min="filter.listValues[0]"
                     :max="filter.listValues[1]"
-                    :disabled="!filtersValues[f].value.notNull"
+                    :disabled="!filtersValues[f].value.isActive"
                     @change="onChangeFiltersValues"
                 />
                 <el-input-number
@@ -58,7 +59,7 @@
                     controls-position="right"
                     :min="filter.listValues[0]"
                     :max="filter.listValues[1]"
-                    :disabled="!filtersValues[f].value.notNull"
+                    :disabled="!filtersValues[f].value.isActive"
                     @change="onChangeFiltersValues"
                 />
               </div>
@@ -67,12 +68,26 @@
               range
               :min="filter.listValues[0]"
               :max="filter.listValues[1]"
-              :disabled="!filtersValues[f].value.notNull"
+              :disabled="!filtersValues[f].value.isActive"
               @change="onChangeFiltersValues"
           />
           </div>
         </template>
       </div>
+
+<!--      <div class="filter-block-2" v-for="(filter, f) of filters" :key="f">-->
+<!--        <div class="filter-header">-->
+<!--            <div class="filter-checkbox">-->
+
+<!--            </div>-->
+<!--            <div class="filter-label">-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="filter-body">-->
+
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 
@@ -151,6 +166,7 @@ export default {
   display: flex;
   flex-flow: column wrap;
   justify-content: start;
+  align-items: center;
 
   &.heightLimited {
     height: 280px;
@@ -178,9 +194,29 @@ export default {
       height: auto;
     }
   }
-  //.el-slider {
-  //  height: 14px;
-  //}
+  .filter-block-2 {
+    width: 280px;
+    .filter-header {
+      .filter-checkbox {
+        width: 280px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+        padding: 3px;
+      }
+      .filter-label {
+        width: 105px;
+        height: auto;
+        text-align: right;
+      }
+    }
+    .filter-body {
+      width: 160px;
+      height: auto;
+    }
+  }
 
 }
 

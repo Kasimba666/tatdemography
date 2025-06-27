@@ -126,7 +126,7 @@ export default new Vuex.Store({
                             if (!((fV.value === item.properties[fV.attrName]) || (fV.value === 'all'))) filterPass = false;
                         }
                     if (fV.type === 'range') {
-                        if (!(!fV.value && fV.value.range?.length === 0 || !fV.value.notNull || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
+                        if (!(!fV.value && fV.value.range?.length === 0 || !fV.value.isActive || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
                     }
                         if (fV.type === 'input') {
                             if (!((fV.value === null) || (fV.value === '') ||
@@ -409,7 +409,7 @@ export default new Vuex.Store({
                     let newValue = null;
                     if (v.type==='input') newValue = '';
                     if (v.type==='select') newValue = 'all';
-                    if (v.type==='range') newValue = {notNull: false, range: [v.listValues[0], v.listValues[1]]};
+                    if (v.type==='range') newValue = {isActive: false, range: [v.listValues[0], v.listValues[1]]};
                     return {attrName: v.attrName, type: v.type, value: newValue}
                 }));
         },
