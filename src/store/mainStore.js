@@ -119,14 +119,14 @@ export default new Vuex.Store({
                     let filterPass = true;
                     state.filtersValues.forEach((fV) => {
                         if (fV.type === 'input') {
-                            if (!((fV.value === null) || (fV.value === '') ||
-                                ((item.properties[fV.attrName] !== null ? item.properties[fV.attrName] : '').toString().toLowerCase().includes((fV.value !== null ? fV.value : '').toString().toLowerCase(), 0)))) filterPass = false;
+                            if (!(!fV.value.isActive || (fV.value === null) || (fV.value.list[0] === '') ||
+                                ((item.properties[fV.attrName] !== null ? item.properties[fV.attrName] : '').toString().toLowerCase().includes((fV.value !== null ? fV.value.list[0] : '').toString().toLowerCase(), 0)))) filterPass = false;
                         }
                         if (fV.type === 'select') {
-                            if (!((fV.value === item.properties[fV.attrName]) || (fV.value === 'all'))) filterPass = false;
+                            if (!(!fV.value.isActive || (fV.value.list[0] === item.properties[fV.attrName]) || (fV.value.list[0] === 'all'))) filterPass = false;
                         }
                         if (fV.type === 'range') {
-                            if (!(!fV.value && fV.value.range?.length === 0 || !fV.value.isActive || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
+                            if (!(!fV.value.isActive || !fV.value && fV.value.range?.length === 0 || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
                         }
 
                     });
@@ -406,8 +406,9 @@ export default new Vuex.Store({
         clearFiltersValues({commit, getters}) {
                 commit('setFiltersValues', getters.filters.map((v) => {
                     let newValue = null;
-                    if (v.type==='input') newValue = '';
-                    if (v.type==='select') newValue = 'all';
+                    if (v.type==='input') newValue = {isActive: false, list: ['']};
+                    if (v.type==='select') newValue = {isActive: false, list: ['all']};
+                    // if (v.type==='select') newValue = 'all';
                     if (v.type==='range') newValue = {isActive: false, range: [v.listValues[0], v.listValues[1]]};
                     return {attrName: v.attrName, type: v.type, value: newValue}
                 }));

@@ -8,19 +8,21 @@
       <div class="filter-placeholder">
         <template v-if="filter.type === 'input'">
           <el-input id="filter_`${f}`"
-              v-model="filtersValues[f].value"
+              v-model="filtersValues[f].value.list[0]"
               style="width: 160px"
               size="small"
+              :disabled="!filtersValues[f].value.isActive"
               @change="onChangeFiltersValues"
               @input="onChangeFiltersValues"
           />
         </template>
         <template v-if="filter.type === 'select'">
           <el-select id="filter_`${f}`"
-              v-model="filtersValues[f].value"
+              v-model="filtersValues[f].value.list[0]"
               placeholder="Select"
               size="small"
               style="width: 160px"
+              :disabled="!filtersValues[f].value.isActive"
               @change="onChangeFiltersValues"
           >
             <el-option
