@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OGRVRTDataSource>
+    <OGRVRTLayer name="Seventh_1816_3857_test">
+        <SrcDataSource relativeToVRT="1">Seventh_1816_test.xlsx</SrcDataSource>
+        <!--Header=False-->
+        <SrcLayer>Лист1</SrcLayer>
+        <Field name="id" src="id" type="String"/>
+        <Field name="nameold" src="nameold" type="String"/>
+        <Field name="nameoldalt" src="nameoldalt" type="String"/>
+        <Field name="namemod" src="namemod" type="String"/>
+        <Field name="admunit1old" src="admunit1old" type="String"/>
+        <Field name="admunit2old" src="admunit2old" type="String"/>
+        <Field name="admunit3old" src="admunit3old" type="String"/>
+        <Field name="admunit4old" src="admunit4old" type="String"/>
+        <Field name="admunit5old" src="admunit5old" type="String"/>
+        <Field name="admunitmod" src="admunitmod" type="String"/>
+        <Field name="estate1" src="estate1" type="String"/>
+        <Field name="estate2" src="estate2" type="String"/>
+        <Field name="estate3" src="estate3" type="String"/>
+        <Field name="estate4" src="estate4" type="String"/>
+        <Field name="estate5" src="estate5" type="String"/>
+        <Field name="estate_all" src="estate_all" type="Integer"/>
+        <Field name="male1" src="male1" type="Integer"/>
+        <Field name="female1" src="female1" type="Integer"/>
+        <Field name="male2" src="male2" type="Integer"/>
+        <Field name="female2" src="female2" type="Integer"/>
+        <Field name="male3" src="male3" type="Integer"/>
+        <Field name="female3" src="female3" type="Integer"/>
+        <Field name="male4" src="male4" type="Integer"/>
+        <Field name="female4" src="female4" type="Integer"/>
+        <Field name="male5" src="male5" type="Integer"/>
+        <Field name="female5" src="female5" type="Integer"/>
+        <Field name="male_all" src="male_all" type="String"/>
+        <Field name="female_all" src="female_all" type="String"/>
+        <Field name="populall" src="populall" type="String"/>
+        <Field name="region" src="region" type="String"/>
+        <GeometryType>wkbPoint</GeometryType>
+        <LayerSRS>EPSG:4326</LayerSRS>
+        <GeometryField encoding="PointFromColumns" x="lon" y="lat"/>
+    </OGRVRTLayer>
+</OGRVRTDataSource>

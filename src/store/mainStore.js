@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
 // import createPersistedState from 'vuex-persistedstate';
-import fromFileJSON from "@/data/Seventh_1816_3857.json";
+import fromFileJSON from "@/data/Seventh_1816_3857_test.json";
 import imagePaths from "@/data/images_empty.csv";
 import fromFileBorder from "@/data/border_pgm_3857.json";
 
@@ -11,7 +11,8 @@ export default new Vuex.Store({
     state: {
         scheme: [
             {attrName: 'id', type: 'string', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
-            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
+            {attrName: 'region', type: 'string', title: 'Район', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: 'region', sortable: 1},
             {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альт.', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit1old', type: 'string', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
