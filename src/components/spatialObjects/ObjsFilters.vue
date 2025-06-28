@@ -126,29 +126,13 @@ export default {
         if (filterValue != 'all') {
           if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].value.list[0] = 'all'}
         }
-        return newListValues.length > 0 ? newListValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
+        return newListValues.length > 0 ? newListValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all';
       } else {
         // console.log('f.listValues', f.listValues);
-        return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value > b.value ? 1 : -1) : 'all';
+        return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all';
         // return f.listValues.length > 0 ? f.listValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
       }
     },
-    // valuesDependentOnParent(f) {
-    //   if (f.attrParent != null || this.filtersValues.filter((fV) => {if (fV.attrName === f.attrParent) {return fV} })?.[0]?.value === 'all') {
-    //     let newListValues = f.listValues.filter((v) => {if (this.filtersValues.filter((fV) => { if (fV.attrName === f.attrParent) {return fV } })[0].value === v.parentValue) {return v}});
-    //     let filterValue = this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })?.[0]?.value;
-    //     //если текущее значение фильтра не null, но не попадает в диапазон допустимых значений из parent, то установить значение null
-    //     if (filterValue != 'all') {
-    //       if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].value = 'all'}
-    //     }
-    //     return newListValues.length > 0 ? newListValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
-    //   } else {
-    //     // console.log('f.listValues', f.listValues);
-    //     return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value > b.value ? 1 : -1) : 'all';
-    //     // return f.listValues.length > 0 ? f.listValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
-    //   }
-    // },
-
 
     onChangeFiltersValues() {
       this.$emit('update:filtersValues');

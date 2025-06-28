@@ -415,8 +415,8 @@ export default new Vuex.Store({
                 commit('setFiltersValues', getters.filters.map((v) => {
                     let newValue = null;
                     if (v.type==='input') newValue = {isActive: false, list: ['']};
-                    // if (v.type==='select') newValue = {isActive: false, list: [v.listValues[0]]};
-                    if (v.type==='select') newValue = {isActive: false, list: ['all']};
+                    if (v.type==='select') newValue = {isActive: false, list: [v.listValues[0]]};
+                    // if (v.type==='select') newValue = {isActive: false, list: ['all']};
                     if (v.type==='range') newValue = {isActive: false, list: [v.listValues[0], v.listValues[1]]};
                     return {attrName: v.attrName, type: v.type, value: newValue}
                 }));
