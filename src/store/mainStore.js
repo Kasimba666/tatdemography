@@ -11,8 +11,8 @@ export default new Vuex.Store({
     state: {
         scheme: [
             {attrName: 'id', type: 'string', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
-            {attrName: 'region', type: 'string', title: 'Район', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: 'region', sortable: 1},
+            // {attrName: 'region', type: 'string', title: 'Район', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альт.', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit1old', type: 'string', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
@@ -89,7 +89,7 @@ export default new Vuex.Store({
                             attrParent: attr.parentValueFrom,
                             title: attr.title,
                             type: 'select',
-                            listValues: listValues.sort()
+                            listValues: listValues.sort((a, b) => a.value.localeCompare(b.value))
                         });
                     }//select
                     if (attr.filterType === 'range') {
@@ -127,7 +127,7 @@ export default new Vuex.Store({
                             if (!(!fV.value.isActive || (fV.value.list[0] === item.properties[fV.attrName]) || (fV.value.list[0] === 'all'))) filterPass = false;
                         }
                         if (fV.type === 'range') {
-                            if (!(!fV.value.isActive || !fV.value && fV.value.range?.length === 0 || ((fV.value?.range?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.range?.[1])))) filterPass = false;
+                            if (!(!fV.value.isActive || !fV.value && fV.value.list?.length === 0 || ((fV.value?.list?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.value?.list?.[1])))) filterPass = false;
                         }
 
                     });
@@ -415,9 +415,9 @@ export default new Vuex.Store({
                 commit('setFiltersValues', getters.filters.map((v) => {
                     let newValue = null;
                     if (v.type==='input') newValue = {isActive: false, list: ['']};
+                    // if (v.type==='select') newValue = {isActive: false, list: [v.listValues[0]]};
                     if (v.type==='select') newValue = {isActive: false, list: ['all']};
-                    // if (v.type==='select') newValue = 'all';
-                    if (v.type==='range') newValue = {isActive: false, range: [v.listValues[0], v.listValues[1]]};
+                    if (v.type==='range') newValue = {isActive: false, list: [v.listValues[0], v.listValues[1]]};
                     return {attrName: v.attrName, type: v.type, value: newValue}
                 }));
         },

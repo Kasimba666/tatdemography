@@ -52,7 +52,7 @@
             <div class="input-items">
                 <div>
                   <el-input-number
-                      v-model="filtersValues[f].value.range[0]"
+                      v-model="filtersValues[f].value.list[0]"
                       style="width: 80px"
                       size="small"
                       controls-position="right"
@@ -62,7 +62,7 @@
                       @change="onChangeFiltersValues"
                   />
                   <el-input-number
-                      v-model="filtersValues[f].value.range[1]"
+                      v-model="filtersValues[f].value.list[1]"
                       style="width: 80px"
                       size="small"
                       controls-position="right"
@@ -73,7 +73,7 @@
                   />
                 </div>
             <el-slider
-                v-model="filtersValues[f].value.range"
+                v-model="filtersValues[f].value.list"
                 range
                 :min="filter.listValues[0]"
                 :max="filter.listValues[1]"
@@ -156,6 +156,8 @@ export default {
     },
   },
   mounted() {
+    this.filtersValues.forEach(v => {console.log(v.attrName, v.value.list)})
+
   },
 }
 </script>
