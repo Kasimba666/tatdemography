@@ -12,7 +12,7 @@ export default new Vuex.Store({
         scheme: [
             {attrName: 'id', type: 'string', title: 'id', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'none', parentValueFrom: null, sortable: 0},
             {attrName: 'nameold', type: 'string', title: 'Наименование старое', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
-            {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альтернативное', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
+            {attrName: 'nameoldalt', type: 'string', title: 'Наименование старое альт.', inTable: 1, inCards: 1, colSize: 1.5, inDetails: 1, inMap: 0, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'namemod', type: 'string', title: 'Наименование современное', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 1, filterType: 'input', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit1old', type: 'string', title: 'Административная единица 1', inTable: 1, inCards: 1, colSize: 3, inDetails: 1, inMap: 1, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit2old', type: 'string', title: 'Административная единица 2', inTable: 1, inCards: 1, colSize: 4, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
@@ -357,8 +357,15 @@ export default new Vuex.Store({
                             let newValue = value;
                             //приводим типы к тем, что указаны в шаблоне
                             if (getters.objAttrTypes[key] === 'string') {
-                                if (!newValue) newValue = '';
-                                if (typeof(newValue) != 'string') newValue = newValue.toString();
+                                if (!newValue) {
+                                    newValue = ''
+                                }else {
+                                    if (typeof (newValue) != 'string') {
+                                        newValue = newValue.toString();
+                                    }else{
+                                        newValue = newValue.trim();
+                                    }
+                                }
                             }
                             if (getters.objAttrTypes[key] === 'integer') {
                                 if (!newValue) newValue = 0;

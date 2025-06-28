@@ -58,8 +58,9 @@ export default {
 <style lang="scss">
 
 .app {
+  //min-width: 400px;
   padding: 3px;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-color-2);
 }
 
 </style>

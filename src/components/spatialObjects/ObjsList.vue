@@ -1,6 +1,5 @@
 <template>
-  <div class="ObjsList">
-    <div class="list-wrapper" v-if="rows.length > 0">
+  <div class="ObjsList" v-if="rows.length > 0">
       <ObjsSorting v-if="Object.keys(sortingValues).length>0"
                    :sortingValues="sortingValues"
                    :scheme="scheme"
@@ -69,7 +68,6 @@
           </div>
         </template>
       </div>
-    </div>
     <div v-else>
       Результатов выборки не найдено, попробуйте изменить значения фильтров
     </div>
@@ -138,7 +136,12 @@ export default {
   width: 100%;
   //height: 80dvh;
   //overflow-x: scroll;
-  .list-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  align-items: start;
+  gap: 3px;
+
     .objs-table {
       position: relative;
       width: 100%;
@@ -313,6 +316,6 @@ export default {
       }
 
     }
-  }
+
 }
 </style>

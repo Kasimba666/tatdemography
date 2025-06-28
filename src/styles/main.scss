@@ -12,8 +12,8 @@
   --el-slider-button-wrapper-size: 34px;
   --el-slider-button-wrapper-offset: -15px;
 
-}
 
+}
 .screen-monitor {
   position: absolute;
   left: 10px;
@@ -22,12 +22,13 @@
   color: black;
   z-index: 10;
 }
+
 .app-panel {
-  background-color: var(--bg-primary);
+  background-color: var(--bg-color-1);
   border-color:var(--border-color);
 }
 
-// overrides el-button
+// Overrides Element-plus
 .el-button {
   &.el-button--primary {
     background-color: var(--primary-color);
@@ -61,4 +62,8 @@
       box-shadow: 0 0 4px var(--color-slider-track);
     }
   }
+}
+.el-checkbox {
+    width: 18px !important;
+    height: 18px !important;
 }

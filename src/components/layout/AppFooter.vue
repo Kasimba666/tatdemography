@@ -22,6 +22,8 @@ export default {
 
 <style lang="scss">
 .AppFooter {
-
+  .app-panel {
+    background-color: var(--bg-color-2);
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="ObjsSorting" v-if="Object.keys(sortingValues).length>0">
     <div class="sorting-block">
       <div class="sorting-label">
-        <label for="sorting" class="label">Сортировка: </label>
+        <label for="sorting" class="filter-label">Сортировка:</label>
       </div>
       <div class="sorting-value">
         <el-select id="sorting"
@@ -61,19 +61,22 @@ export default {
 
 <style lang="scss">
 .ObjsSorting {
-  width: 100%;
+  width: auto;
   height: auto;
-  padding: 5px;
+  padding: 0;
+  border: 1px solid hsl(0, 88%, 83%);
 
   .sorting-block {
-    width: 100%;
+    width: auto;
     //width: 270px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     gap: 5px;
     padding: 3px;
+    border-radius: 5px;
+    background-color: var(--bg-color-3);
 
     .sorting-label {
       width: 70px;
@@ -82,12 +85,13 @@ export default {
     }
 
     .sorting-value {
-      width: 260px;
+      width: 190px;
       height: auto;
     }
     .sorting-direction {
       width: auto;
       height: auto;
+      border: 1px solid hsl(0, 88%, 83%);
     }
   }
 

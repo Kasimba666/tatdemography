@@ -34,10 +34,12 @@ export default {
     margin-top: 2px;
 
   .app-panel {
+    position: relative;
     padding: 5px;
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
+    background-color: var(--bg-color-2);
   }
 
   }

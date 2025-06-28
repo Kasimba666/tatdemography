@@ -41,6 +41,7 @@ export default {
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
+    background-color: var(--bg-color-2);
     //opacity: 80%;
     //background-size: cover;
     //background-position: center;

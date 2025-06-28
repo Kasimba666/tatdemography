@@ -2,7 +2,8 @@
   <div class="ObjsFiltersAndList" :class="{directionColumn: (!allowShortMode || modeShort)}">
     <div class="filters-and-list">
       <div class="filter-button-block">
-        <el-button type="primary" style="margin-top: 5px"
+        <el-button
+            type="primary"
             size="small"
             @click="toogleFiltersShow"
         >
@@ -16,7 +17,6 @@
           </div>
         </el-button>
         <el-button v-if="filtersIsShown"
-            style="margin-top: 5px"
             size="small"
             @click="onResetFiltersValues"
         >
@@ -29,8 +29,8 @@
           :filtersValues="filtersValues"
           @onChangeFiltersValues="onChangeFiltersValues"
       />
-
-      <el-radio-group style="margin-bottom: 5px"
+      <div class="list-map-toggler">
+        <el-radio-group style="margin-bottom: 5px"
           v-if="!allowShortMode || modeShort"
           v-model="currentViewMode"
           size="small"
@@ -38,6 +38,7 @@
         <el-radio-button label="Список" value="list" />
         <el-radio-button label="Карта" value="map" />
       </el-radio-group>
+      </div>
       <ObjsList
           v-if="(allowShortMode && !modeShort) || currentViewMode === 'list'"
           :rows="rows"
@@ -178,21 +179,31 @@ export default {
 
 <style lang="scss">
 .ObjsFiltersAndList {
-  position: relative;
+  //position: relative;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  //align-items: center;
   gap: 5px;
   &.directionColumn {
     flex-direction: column;
   }
+  .filter-button-block {
+    //position: relative;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: start;
+    align-items: start;
+    gap: 1px;
 
+  }
   .filters-and-list {
-    text-align: start;
     width: auto;
     min-width: 384px;
     flex: 1;
+    text-align: start;
   }
 
   .map {
@@ -204,10 +215,7 @@ export default {
     margin-top: 0px;
   }
 
-  .filter-button-block {
-    padding: 5px;
 
-  }
 
 }
 </style>
