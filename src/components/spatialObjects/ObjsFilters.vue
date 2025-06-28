@@ -5,41 +5,33 @@
       <div class="filter-header">
         <div class="filter-checkbox">
           <el-checkbox
-              v-model="filtersValues[f].value.isActive"
+              v-model="filtersValues[f].isActive"
               label=""
-              @change="onChangeFiltersValues"
+              @change="onChangeCheckbox(filter.attrName)"
           />
         </div>
         <div class="filter-label">
           <label for="filter_`${f}`">{{ filter.title }} </label>
         </div>
       </div>
-      <div class="filter-body" v-if="filtersValues[f].value.isActive">
+      <div class="filter-body" v-if="filtersValues[f].isActive">
           <template v-if="filter.type === 'input'">
             <el-input id="filter_`${f}`"
-                v-model="filtersValues[f].value.list[0]"
+                v-model="filtersValues[f].list[0]"
                 size="small"
-                :disabled="!filtersValues[f].value.isActive"
+                :disabled="!filtersValues[f].isActive"
                 @change="onChangeFiltersValues"
                 @input="onChangeFiltersValues"
             />
           </template>
           <template v-if="filter.type === 'select'">
             <el-select id="filter_`${f}`"
-                v-model="filtersValues[f].value.list[0]"
+                v-model="filtersValues[f].list[0]"
                 placeholder="Select"
                 size="small"
-
-                :disabled="!filtersValues[f].value.isActive"
+                :disabled="!filtersValues[f].isActive"
                 @change="onChangeFiltersValues"
             >
-              <el-option
-                  key="all"
-                  label="(все)"
-                  value="all"
-              >
-                (все)
-              </el-option>
               <el-option
                   v-for="(item, i) of valuesDependentOnParent(filter)"
                   :key="i"
@@ -52,32 +44,32 @@
             <div class="input-items">
                 <div>
                   <el-input-number
-                      v-model="filtersValues[f].value.list[0]"
+                      v-model="filtersValues[f].list[0]"
                       style="width: 80px"
                       size="small"
                       controls-position="right"
                       :min="filter.listValues[0]"
                       :max="filter.listValues[1]"
-                      :disabled="!filtersValues[f].value.isActive"
+                      :disabled="!filtersValues[f].isActive"
                       @change="onChangeFiltersValues"
                   />
                   <el-input-number
-                      v-model="filtersValues[f].value.list[1]"
+                      v-model="filtersValues[f].list[1]"
                       style="width: 80px"
                       size="small"
                       controls-position="right"
                       :min="filter.listValues[0]"
                       :max="filter.listValues[1]"
-                      :disabled="!filtersValues[f].value.isActive"
+                      :disabled="!filtersValues[f].isActive"
                       @change="onChangeFiltersValues"
                   />
                 </div>
             <el-slider
-                v-model="filtersValues[f].value.list"
+                v-model="filtersValues[f].list"
                 range
                 :min="filter.listValues[0]"
                 :max="filter.listValues[1]"
-                :disabled="!filtersValues[f].value.isActive"
+                :disabled="!filtersValues[f].isActive"
                 @change="onChangeFiltersValues"
             />
             </div>
@@ -119,28 +111,40 @@ export default {
   methods: {
 
     valuesDependentOnParent(f) {
-      if (f.attrParent != null || this.filtersValues.filter((fV) => {if (fV.attrName === f.attrParent) {return fV} })?.[0]?.value.list[0] === 'all') {
-        let newListValues = f.listValues.filter((v) => {if (this.filtersValues.filter((fV) => { if (fV.attrName === f.attrParent) {return fV } })[0].value.list[0] === v.parentValue) {return v}});
-        let filterValue = this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })?.[0]?.value.list[0];
-        //если текущее значение фильтра не null, но не попадает в диапазон допустимых значений из parent, то установить значение null
+      if (f.attrParent != null || this.filtersValues.filter((fV) => {if (fV.attrName === f.attrParent) {return fV} })?.[0]?.list[0] === 'all') {
+        let newListValues = f.listValues.filter((v) => {if (this.filtersValues.filter((fV) => { if (fV.attrName === f.attrParent) {return fV } })[0].list[0] === v.parentValue) {return v}}).sort((a, b) => a.value.localeCompare(b.value));
+        // console.log('newListValues', newListValues);
+        let filterValue = this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })?.[0]?.list[0];
+        //если текущее значение фильтра не null, но не попадает в диапазон допустимых значений из parent, то установить первое значение из подходящего диапазона
         if (filterValue != 'all') {
-          if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].value.list[0] = 'all'}
+          // if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = 'all_0'}
+          if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {
+            console.log('смена диапазона допустимых значений');
+            this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = newListValues[0];
+          }
         }
-        return newListValues.length > 0 ? newListValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all';
+        return newListValues.length > 0 ? newListValues : 'all_1';
       } else {
-        // console.log('f.listValues', f.listValues);
-        return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all';
+
+        return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all_2';
         // return f.listValues.length > 0 ? f.listValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
       }
     },
-
+    onChangeCheckbox(currentAttrName) {
+      if (this.filtersValues.filter(v => v.attrName === currentAttrName)[0].isActive) {
+        this.filtersValues.filter(v => v.attrName === currentAttrName)[0].list[0] = this.filters.filter(v => v.attrName === currentAttrName)[0].listValues[0].value;
+      }else{
+        this.filtersValues.filter(v => v.attrName === currentAttrName)[0].list = [];
+      }
+      this.onChangeFiltersValues();
+    },
     onChangeFiltersValues() {
       this.$emit('update:filtersValues');
       this.$emit('onChangeFiltersValues');
     },
   },
   mounted() {
-    this.filtersValues.forEach(v => {console.log(v.attrName, v.value.list)})
+    // this.filtersValues.forEach(v => {console.log(v.attrName, v.list)})
 
   },
 }
