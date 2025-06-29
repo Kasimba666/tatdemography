@@ -40,6 +40,18 @@
               />
             </el-select>
           </template>
+          <template v-if="filter.type === 'multiselect'">
+              <el-checkbox-group class="checkbox-group"
+                v-model="filtersValues[f].list" >
+                <el-checkbox
+                    v-for="(item, i) of valuesDependentOnParent(filter)"
+                    :key="i"
+                    :label="item.value"
+                    :disabled="!filtersValues[f].isActive"
+                >
+                </el-checkbox>
+              </el-checkbox-group>
+          </template>
           <template v-if="filter.type === 'range'">
             <div class="input-items">
                 <div>

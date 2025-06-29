@@ -20,7 +20,7 @@ export default new Vuex.Store({
             {attrName: 'admunit3old', type: 'string', title: 'Административная единица 3', inTable: 1, inCards: 1, colSize: 6, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit4old', type: 'string', title: 'Административная единица 4', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
             {attrName: 'admunit5old', type: 'string', title: 'Административная единица 5', inTable: 1, inCards: 1, colSize: 2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 1},
-            {attrName: 'estate1', type: 'string', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
+            {attrName: 'estate1', type: 'string', title: 'Сословие 1', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'multiselect', parentValueFrom: null, sortable: 0},
             {attrName: 'estate2', type: 'string', title: 'Сословие 2', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate3', type: 'string', title: 'Сословие 3', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
             {attrName: 'estate4', type: 'string', title: 'Сословие 4', inTable: 1, inCards: 1, colSize: 1.2, inDetails: 1, inMap: 0, filterType: 'select', parentValueFrom: null, sortable: 0},
@@ -91,6 +91,33 @@ export default new Vuex.Store({
                             listValues: listValues.sort((a, b) => a.value.localeCompare(b.value))
                         });
                     }//select
+                    if (attr.filterType === 'multiselect') {
+                        let listValues = [];
+                        state.geojson.features.forEach(feature => {
+                            if (feature.properties[attr.attrName] != null && feature.properties[attr.attrName] != '' && !listValues.map((v) => {
+                                return v.value
+                            }).includes(feature.properties[attr.attrName])) {
+                                let newParentValue = null;
+                                if (attr.parentValueFrom != null) {
+                                    if (feature.properties[attr.parentValueFrom] != null && feature.properties[attr.parentValueFrom] != '') {
+                                        newParentValue = feature.properties[attr.parentValueFrom];
+                                    }
+                                }
+
+                                listValues.push({
+                                    value: feature.properties[attr.attrName],
+                                    parentValue: newParentValue
+                                });
+                            }
+                        });
+                        newFilters.push({
+                            attrName: attr.attrName,
+                            attrParent: attr.parentValueFrom,
+                            title: attr.title,
+                            type: 'multiselect',
+                            listValues: listValues.sort((a, b) => a.value.localeCompare(b.value))
+                        });
+                    }//multiselect
                     if (attr.filterType === 'range') {
                         let listValues = [];
                         let allValues=[];
@@ -124,6 +151,9 @@ export default new Vuex.Store({
                         }
                         if (fV.type === 'select') {
                             if (!(!fV.isActive || (fV.list[0] === item.properties[fV.attrName]) || (fV.list[0] === 'all'))) filterPass = false;
+                        }
+                        if (fV.type === 'multiselect') {
+                            if (!(!fV.isActive || (fV.list.includes(item.properties[fV.attrName])) || (fV.list[0] === 'all'))) filterPass = false;
                         }
                         if (fV.type === 'range') {
                             if (!(!fV.isActive || !fV && fV.list?.length === 0 || ((fV.list?.[0] <= item.properties[fV.attrName]) && (item.properties[fV.attrName] <= fV.list?.[1])))) filterPass = false;
