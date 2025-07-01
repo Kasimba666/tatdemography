@@ -1,7 +1,7 @@
 <template>
   <div class="ObjsFilters" v-if="filtersValues.length>0">
-    <div class="filter-wrapper" :class="{heightLimited: ['md', 'lg', 'xl'].includes(this.screen.type)}">
-      <div class="filter-block" v-for="(filter, f) of filters" :key="f">
+    <div class="filter-container" :class="{heightLimited: ['md', 'lg', 'xl'].includes(this.screen.type)}">
+      <div class="filter-block" v-for="(filter, f) of filters" :key="f + '_' + filtersValues[f].isActive">
       <div class="filter-header">
         <div class="filter-checkbox">
           <el-checkbox
@@ -46,7 +46,7 @@
                 <el-checkbox
                     v-for="(item, i) of valuesDependentOnParent(filter)"
                     :key="i"
-                    :label="item.value"
+                    :value="item.value"
                     :disabled="!filtersValues[f].isActive"
                 >
                 </el-checkbox>
@@ -156,7 +156,6 @@ export default {
     },
   },
   mounted() {
-    // this.filtersValues.forEach(v => {console.log(v.attrName, v.list)})
 
   },
 }
@@ -171,30 +170,22 @@ export default {
   //border: 1px solid hsl(0, 88%, 83%);
 
 
-  .filter-wrapper {
-    position: relative;
-    width: auto;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: start;
-    align-items: start;
-    gap: 3px;
-    border: 1px solid hsl(0, 88%, 83%);
-    &.heightLimited {
-      height: 300px;
-    };
+  .filter-container {
+    columns: 200px;
+    column-gap: 3px;
+    max-height: 400px;
+    overflow-y: auto;
+
 
     .filter-block {
-    width: 200px;
-    display: flex;
-    flex-flow: column;
-    justify-content: start;
-    align-items: center;
-    gap: 3px;
-    padding: 5px;
-    background-color: var(--bg-color-3);
-    border-radius: 5px;
-    //border: 1px solid hsl(0, 88%, 83%);
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 6px;
+
+      padding: 5px;
+      background-color: var(--bg-color-3);
+      border-radius: 5px;
+      //border: 1px solid hsl(0, 88%, 83%);
 
     .filter-header {
       width: 100%;
@@ -212,20 +203,18 @@ export default {
       .filter-label {
         width: 100%;
         height: auto;
+        box-sizing: border-box;
         text-align: left;
         padding-top: 0px;
-        //margin-right: 10px;
         //border: 1px solid hsl(0, 0%, 90%);
       }
     }
     .filter-body {
       width: 100%;
       height: auto;
-      //.el-select {
-      //  width: 100%;
-      //}
+
     }
-  }
+    }
   }
 }
 
