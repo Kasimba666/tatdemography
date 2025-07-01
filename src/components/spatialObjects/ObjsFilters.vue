@@ -8,7 +8,7 @@
           <el-checkbox
               v-model="filtersValues[f].isActive"
               label=""
-              @change="onChangeCheckbox(filter.attrName)"
+              @click.native="onChangeCheckbox(filter.attrName)"
           />
         </div>
         <div class="filter-label">
@@ -133,7 +133,7 @@ export default {
         if (filterValue != 'all') {
           // if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = 'all_0'}
           if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {
-            console.log('смена диапазона допустимых значений');
+            // console.log('смена диапазона допустимых значений');
             this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = newListValues[0];
           }
         }
@@ -145,10 +145,19 @@ export default {
       }
     },
     onChangeCheckbox(currentAttrName) {
-      if (this.filtersValues.filter(v => v.attrName === currentAttrName)[0].isActive) {
-        this.filtersValues.filter(v => v.attrName === currentAttrName)[0].list[0] = this.filters.filter(v => v.attrName === currentAttrName)[0].listValues[0].value;
+      let typeFilter = this.filters.find(v => v.attrName === currentAttrName).type;
+      let currentFilterValue = this.filtersValues.find(v => v.attrName === currentAttrName);
+      let currentFilter = this.filters.find(v => v.attrName === currentAttrName);
+      if (!currentFilterValue.isActive) {//сначала обрабатывается текущее значение, затем чек бокс помечается
+        if (typeFilter === 'input') currentFilterValue.list = [];
+        if (typeFilter === 'select') currentFilterValue.list[0] = currentFilter.listValues[0].value;
+        if (typeFilter === 'multiselect') currentFilterValue.list = [currentFilter.listValues[0].value];
+        if (typeFilter === 'range') {
+          currentFilterValue.list[0] = currentFilter.listValues[0];
+          currentFilterValue.list[1] = currentFilter.listValues[1];
+        }
       }else{
-        this.filtersValues.filter(v => v.attrName === currentAttrName)[0].list = [];
+        currentFilterValue.list = [];
       }
       this.onChangeFiltersValues();
     },
