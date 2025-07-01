@@ -1,7 +1,7 @@
 <template>
   <div class="ObjsFilters" v-if="filtersValues.length>0">
     <div class="filter-container" :class="{heightLimited: ['md', 'lg', 'xl'].includes(this.screen.type)}">
-      <div class="filter-block" v-for="(filter, f) of filters" :key="f + '_' + filtersValues[f].isActive">
+      <div class="filter-block" v-for="(filter, f) of filters" :key="f">
       <div class="filter-header">
         <div class="filter-checkbox">
           <el-checkbox
@@ -11,12 +11,12 @@
           />
         </div>
         <div class="filter-label">
-          <label for="filter_`${f}`">{{ filter.title }} </label>
+          <label>{{ filter.title }} </label>
         </div>
       </div>
       <div class="filter-body" v-if="filtersValues[f].isActive">
           <template v-if="filter.type === 'input'">
-            <el-input id="filter_`${f}`"
+            <el-input
                 v-model="filtersValues[f].list[0]"
                 size="small"
                 :disabled="!filtersValues[f].isActive"
@@ -25,7 +25,7 @@
             />
           </template>
           <template v-if="filter.type === 'select'">
-            <el-select id="filter_`${f}`"
+            <el-select
                 v-model="filtersValues[f].list[0]"
                 placeholder="Select"
                 size="small"
@@ -41,8 +41,9 @@
             </el-select>
           </template>
           <template v-if="filter.type === 'multiselect'">
-              <el-checkbox-group class="checkbox-group"
-                v-model="filtersValues[f].list" >
+              <el-checkbox-group
+                  class="checkbox-group"
+                  v-model="filtersValues[f].list" >
                 <el-checkbox
                     v-for="(item, i) of valuesDependentOnParent(filter)"
                     :key="i"
