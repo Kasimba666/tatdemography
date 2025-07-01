@@ -1,7 +1,8 @@
 <template>
-  <div class="ObjsFilters" v-if="filtersValues.length>0">
+  <div class="ObjsFilters" v-show="filtersValues.length>0">
     <div class="filter-container" :class="{heightLimited: ['md', 'lg', 'xl'].includes(this.screen.type)}">
-      <div class="filter-block" v-for="(filter, f) of filters" :key="f">
+      <div class="filter-block" v-for="(filter, f) of filters" :key="`${f}+${filtersValues[f].isActive}`">
+
       <div class="filter-header">
         <div class="filter-checkbox">
           <el-checkbox
