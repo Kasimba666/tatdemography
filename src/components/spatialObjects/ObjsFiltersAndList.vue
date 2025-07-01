@@ -50,7 +50,6 @@
           @onChangeSortingValues="onChangeSortingValues"
           @clickRow="onSetCurrentIDFromObjsList"
       />
-      <div/>
     </div>
     <div class="map">
       <ObjsMap
