@@ -67,3 +67,13 @@
     width: 18px !important;
     height: 18px !important;
 }
+.el-select {
+
+}
+.el-checkbox-group {
+  max-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
