@@ -13,7 +13,9 @@
           </div>
         </div>
         <el-collapse-transition>
-          <div class="filter-body" v-show="!collapsedFilters[f]">
+          <div class="filter-body"
+               v-if="visibleFilters[f]"
+          >
             <template v-if="filter.type === 'input'">
               <el-input
                   v-model="filtersValues[f].list[0]"
@@ -106,7 +108,8 @@ export default {
   emits: ['update:filtersValues', 'onChangeFiltersValues'],
   data() {
     return {
-      collapsedFilters: {}
+      collapsedFilters: {},
+      visibleFilters: {},
     }
   },
   setup() {
@@ -121,8 +124,43 @@ export default {
   },
   methods: {
     toggleCollapse(index) {
-      this.collapsedFilters[index] = !this.collapsedFilters[index]
+      this.collapsedFilters[index] = !this.collapsedFilters[index];
+
+      if (!this.collapsedFilters[index]) {
+        // раскрываем — сразу показываем
+        this.visibleFilters[index] = true;
+      } else {
+        // скрываем — убираем после завершения анимации (примерно 300–350мс)
+        setTimeout(() => {
+          this.visibleFilters[index] = false;
+        }, 350);
+      }
     },
+
+    updateDependentFiltersRecursively(parentAttrName) {
+      const parentFilterValue = this.filtersValues.find(v => v.attrName === parentAttrName)?.list || [];
+
+      // Найти все фильтры, у которых указан текущий фильтр как родитель
+      const childFilters = this.filters.filter(f => f.attrParent === parentAttrName);
+      childFilters.forEach(childFilter => {
+        const childAttr = childFilter.attrName;
+        const childFilterValues = this.filtersValues.find(v => v.attrName === childAttr);
+        if (!childFilterValues) return;
+
+        // Получить допустимые значения в зависимости от выбранных значений в родителе
+        const allowedValues = childFilter.listValues
+            .filter(v => parentFilterValue.length === 0 || parentFilterValue.includes(v.parentValue))
+            .map(v => v.value)
+            .sort((a, b) => a.localeCompare(b));
+
+
+        // Удалить из списка выбранных значений те, которые больше не допустимы
+        childFilterValues.list = childFilterValues.list.filter(v => allowedValues.includes(v));
+        // Рекурсивно применить то же правило к потомкам текущего фильтра
+        this.updateDependentFiltersRecursively(childAttr);
+      });
+    },
+
     //возвращает простой массив значений
     valuesDependentOnParent(currentFilter) {
       if (!!currentFilter.attrParent) {
@@ -143,62 +181,11 @@ export default {
         return currentFilter.listValues.map(v => v.value);
       }
 
-
-    // valuesDependentOnParent(f) {
-    //   if (f.attrParent != null || this.filtersValues.filter((fV) => {if (fV.attrName === f.attrParent) {return fV} })?.[0]?.list[0] === 'all') {
-    //     let newListValues = f.listValues.filter((v) => {if (this.filtersValues.filter((fV) => { if (fV.attrName === f.attrParent) {return fV } })[0].list[0] === v.parentValue) {return v}}).sort((a, b) => a.value.localeCompare(b.value));
-    //     // console.log('newListValues', newListValues);
-    //     let filterValue = this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })?.[0]?.list[0];
-    //     //если текущее значение фильтра не null, но не попадает в диапазон допустимых значений из parent, то установить первое значение из подходящего диапазона
-    //     if (filterValue != 'all') {
-    //       // if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = 'all_0'}
-    //       if  (!newListValues.map((v)=>{return v.value}).includes(filterValue)) {
-    //
-    //         this.filtersValues.filter((fV) => {if (fV.attrName === f.attrName) {return fV} })[0].list[0] = newListValues[0];
-    //       }
-    //     }
-    //     return newListValues.length > 0 ? newListValues : 'all_1';
-    //   } else {
-    //
-    //     return f.listValues.length > 0 ? f.listValues.sort((a, b) => a.value.localeCompare(b.value)) : 'all_2';
-    //     // return f.listValues.length > 0 ? f.listValues.sort((a, b) => a['value'] > b['value'] ? 1 : -1) : 'all';
-    //   }
     },
-    onChangeCheckbox(currentAttrName) {
-      let typeFilter = this.filters.find(v => v.attrName === currentAttrName).type;
-      let currentFilterValue = this.filtersValues.find(v => v.attrName === currentAttrName);
-      let currentFilter = this.filters.find(v => v.attrName === currentAttrName);
-        if (typeFilter === 'select' || typeFilter === 'multiselect') {
-          //если есть родители
-          if (!!currentFilter.attrParent) {
 
-            //присвоить первое значение из списка
-            this.filtersValues.find(v => v.attrName === currentAttrName).list[0] = this.valuesDependentOnParent(currentFilter)[0];
-          }else{//если нет родителя, то присваиваем первое значение из полного списка
-            this.filtersValues.find(v => v.attrName === currentAttrName).list[0] = this.valuesDependentOnParent(currentFilter)[0];
-
-
-          }
-
-        }
-
-        if (typeFilter === 'range') {
-          currentFilterValue.list[0] = currentFilter.listValues[0];
-          currentFilterValue.list[1] = currentFilter.listValues[1];
-        }
-        // currentFilterValue.list = [];
-      this.onChangeFiltersValues(currentFilter);
-    },
     onChangeFiltersValues(currentFilter) {
-      //если есть дети
-      // let childFilters = this.filters.filter(v=>v.attrParent === currentFilter.attrName);
-      // console.log('currentFilter', currentFilter, 'childFilters', childFilters);
-      // childFilters.forEach(cF=>{
-      //   console.log();
-      // });
-
-      //если есть ровесники
-
+      // Обновить потомков, если есть
+      this.updateDependentFiltersRecursively(currentFilter.attrName);
 
       this.$emit('update:filtersValues');
       this.$emit('onChangeFiltersValues');
@@ -207,6 +194,7 @@ export default {
   mounted() {
     this.filters.forEach((_, i) => {
       this.collapsedFilters[i] = true;
+      this.visibleFilters[i] = false;
     })
   },
 }
@@ -251,7 +239,7 @@ export default {
       user-select: none;
       //border: 1px solid hsl(0, 0%, 90%);
       .el-icon {
-        transition: transform 0.2s ease;
+        transition: transform 0.5s ease;
       }
       .filter-label {
         width: 100%;
