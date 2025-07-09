@@ -25,21 +25,38 @@
               />
             </template>
             <template v-if="filter.type === 'select'">
-              <el-select
-                  v-model="filtersValues[f].list[0]"
-                  placeholder="Select"
-                  size="small"
-                  clearable
-                  @change="onChangeFiltersValues(filter)"
-              >
+              <div class="select-with-clear">
+                <el-select
+                    v-model="filtersValues[f].list[0]"
+                    placeholder="Выбрать"
+                    size="small"
+                    class="filter-select"
+                    :clearable="false"
+                    @change="onChangeFiltersValues(filter)"
+                >
                 <el-option
                     v-for="(item, i) of valuesDependentOnParent(filter)"
                     :key="i"
                     :label="item"
                     :value="item"
                 />
-              </el-select>
+                </el-select>
+                <el-button
+                    v-if="filtersValues[f].list[0]"
+                    class="clear-btn"
+                    size="small"
+                    type="text"
+                    @click="filtersValues[f].list[0] = ''; onChangeFiltersValues(filter)"
+                >
+                  <el-icon>
+                    <CircleClose/>
+                  </el-icon>
+                </el-button>
+              </div>
             </template>
+
+
+
             <template v-if="filter.type === 'multiselect'">
                 <el-checkbox-group
                     class="checkbox-group"
@@ -97,10 +114,11 @@
 import {useScreen} from "@/composables/useScreen";
 import { ElCollapseTransition } from 'element-plus';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { CircleClose } from '@element-plus/icons-vue';
 
 export default {
   name: 'ObjsFilters',
-  components: {ElCollapseTransition},
+  components: {ElCollapseTransition, CircleClose},
   props: {
     filtersValues: Array,
     filters: Array,
@@ -130,10 +148,10 @@ export default {
         // раскрываем — сразу показываем
         this.visibleFilters[index] = true;
       } else {
-        // скрываем — убираем после завершения анимации (примерно 300–350мс)
+        // скрываем — убираем после завершения анимации
         setTimeout(() => {
           this.visibleFilters[index] = false;
-        }, 350);
+        }, 200);
       }
     },
 
@@ -208,6 +226,42 @@ export default {
   padding: 5px;
   //border: 1px solid hsl(0, 88%, 83%);
 
+  .select-with-clear {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+
+    .filter-select {
+      flex: 1;
+    }
+    .clear-btn {
+      width: 18px;
+      height: 22px;
+      min-width: 18px;
+      min-height: 18px;
+      padding: 0;
+      border-radius: 3px;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.1);
+      }
+
+
+      .el-icon {
+        font-size: 30px;
+        //background-color: darkmagenta;
+        svg {
+          color: #fa6060;
+          font-size: 16px;
+        }
+      }
+    }
+
+  }
 
   .filter-container {
     columns: 200px;
@@ -238,9 +292,9 @@ export default {
       cursor: pointer;
       user-select: none;
       //border: 1px solid hsl(0, 0%, 90%);
-      .el-icon {
-        transition: transform 0.5s ease;
-      }
+      //.el-icon {
+      //  transition: transform 0.5s ease;
+      //}
       .filter-label {
         width: 100%;
         height: auto;
